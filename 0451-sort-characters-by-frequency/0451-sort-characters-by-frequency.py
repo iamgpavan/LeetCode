@@ -1,0 +1,3 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        return ''.join(c*fre for c, fre in Counter(s).most_common())
