@@ -8,18 +8,33 @@ class Solution {
     // Function to return the adjacency list for each vertex.
     vector<vector<int>> printGraph(int V, vector<int> adj[]) {
         // Code here
-        vector<vector<int>> ans;
+        // index    0        1       2      3       4     ---> node 14x4 = 52 Bytes == 2xE
+        // adj = [[1,4], [0,2,3,4],[1,3],[1,2,4],[0,1,3]] ---> connection
+        
+        // adj matrix ---> 25x4 = 100 bytes
+        //      0   1   2   3   4
+        //  0   0   1   0   0   1
+        
+        //  1   1   0   1   1   1
+        
+        //  2   0   1   0   1   0
+        
+        //  3   0   1   1   0   1
+        
+        //  4   1   1   0   1   0
+        
+        vector<vector<int>> graph;
         
         for(int i=0; i<V; i++){
-            vector<int> s;
-            s.push_back(i);
-            for(int j = 0; j<adj[i].size(); j++){
-                s.push_back(adj[i][j]);
+            vector<int> vertex;
+            vertex.push_back(i);
+            for(int j=0; j<adj[i].size(); j++){
+                vertex.push_back(adj[i][j]);
             }
-            ans.push_back(s);
+            graph.push_back(vertex);
         }
         
-        return ans;
+        return graph;
     }
 };
 
