@@ -1,45 +1,37 @@
 class Solution {
-private:
-    bool check(vector<int> weights, int days, int w){
-        int daysCount = 1;
-        int i=0;
-        int weightSoFar = 0;
-        
-        while(i<weights.size()){
-            weightSoFar += weights[i];
-            if(weightSoFar > w){
-                //cout << daysCount <<  " " << weightSoFar <<  " " << i << " " << w <<  "\n"; 
-                daysCount += 1;
-                weightSoFar = 0;
-                if(weights[i] < w)  i-=1;
-            }
-            i += 1;
-        }
-        //cout << "**********" << "\n"; 
-        if(daysCount > days)    return false;
-        return true;
-    }
 public:
-    int shipWithinDays(vector<int>& weights, int days) {
-        int minWeight = 0;
-        int maxWeight = 0;
-        
-        for(int i=0; i<weights.size(); i++){
-            minWeight = max(minWeight, weights[i]);
-            maxWeight += weights[i];
-        }
-        //check(weights, days, 6);
-        while(minWeight <= maxWeight){
-            int midWeight = (minWeight + maxWeight)/2;
-            //cout << minWeight << " " << maxWeight << " " << midWeight << "\n";
-            if(check(weights, days, midWeight)){
-                maxWeight = midWeight-1;
-            }else{
-                minWeight = midWeight+1;
+    // Check whether the packages can be shipped in less than "days" days with
+    // "c" capacity.
+    bool feasible(vector<int>& weights, int c, int days) {
+        int daysNeeded = 1, currentLoad = 0;
+        for (int weight : weights) {
+            currentLoad += weight;
+            if (currentLoad > c) {
+                daysNeeded++;
+                currentLoad = weight;
             }
         }
-        
-        
-        return minWeight;
+
+        return daysNeeded <= days;
+    }
+
+    int shipWithinDays(vector<int>& weights, int days) {
+        int totalLoad = 0, maxLoad = 0;
+        for (int weight : weights) {
+            totalLoad += weight;
+            maxLoad = max(maxLoad, weight);
+        }
+
+        int l = maxLoad, r = totalLoad;
+
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (feasible(weights, mid, days)) {
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
     }
 };
