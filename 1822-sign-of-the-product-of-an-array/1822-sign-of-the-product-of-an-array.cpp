@@ -11,7 +11,6 @@ public:
             }else{
                 ans = -1;
             }
-            //cout << nums[i] << " " << ans << "\n";
         }
         
         return ans;
