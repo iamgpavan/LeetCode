@@ -16,7 +16,7 @@ public:
                 j += 1;
                 // check for edge case that is right corner
                 // 1 -> 2
-                if(j==n || mat[i][j] != 0){
+                if(j==n || mat[i][j] != 0){ // || mat[i][j] != 0 is to avoid refilling
                     j -= 1;
                     dir = 2;
                     i += 1;
