@@ -9,13 +9,16 @@ class Solution:
         prev = None
         
         while(temp):
+            flag = False
             while(temp and temp.val == val):
-                if(prev == None):
-                    head = temp.next
-                else:
-                    prev.next = temp.next
-                
+                flag = True    
                 temp = temp.next
+            
+            if(flag):
+                if(prev == None):
+                    head = temp
+                else:
+                    prev.next = temp
             
             if(temp == None):
                 return head
