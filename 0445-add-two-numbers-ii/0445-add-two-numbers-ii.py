@@ -4,39 +4,62 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        prev = None
-        temp = None
-        while head:
-            # Keep the next node
-            temp = head.next
-            # Reverse the link
-            head.next = prev
-            # Update the previous node and the current node.
-            prev = head
-            head = temp
-        return prev
-
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        r1 = self.reverseList(l1)
-        r2 = self.reverseList(l2)
-
-        total_sum = 0
+        l1_stack = []
+        l2_stack = []
+        
+        l1_temp = l1
+        l2_temp = l2
+        
+        while(l1_temp):
+            l1_stack.append(l1_temp)
+            l1_temp = l1_temp.next
+        
+        while(l2_temp):
+            l2_stack.append(l2_temp)
+            l2_temp = l2_temp.next
+            
         carry = 0
-        ans = ListNode()
-        while r1 or r2:
-            if r1:
-                total_sum += r1.val
-                r1 = r1.next
-            if r2:
-                total_sum += r2.val
-                r2 = r2.next
-
-            ans.val = total_sum % 10
-            carry = total_sum // 10
-            head = ListNode(carry)
-            head.next = ans
-            ans = head
-            total_sum = carry
-
-        return ans.next if carry == 0 else ans
+        temp = None        
+        
+        while(len(l1_stack) and len(l2_stack)):
+            a = l1_stack.pop().val
+            b = l2_stack.pop().val
+            
+            sum = a + b + carry
+            carry = sum // 10
+            sum %= 10
+            
+            newNode = ListNode(sum)
+            newNode.next = temp
+            temp = newNode
+        
+        while(len(l1_stack)):
+            a = l1_stack.pop().val
+            
+            sum = a + carry
+            carry = sum // 10
+            sum %= 10
+            
+            newNode = ListNode(sum)
+            newNode.next = temp
+            temp = newNode
+        
+        while(len(l2_stack)):
+            b = l2_stack.pop().val
+            
+            sum = b + carry
+            carry = sum // 10
+            sum %= 10
+            
+            newNode = ListNode(sum)
+            newNode.next = temp
+            temp = newNode
+        
+        if(carry):
+            newNode = ListNode(carry)
+            newNode.next = temp
+            temp = newNode
+        
+        head = temp
+        return head
