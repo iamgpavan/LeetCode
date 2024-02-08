@@ -16,23 +16,29 @@ class Solution:
         
         sum = 0
         carry = 0
+        ans_head = None
         
         while(len(stack)):
             sum = 2*stack.pop().val + carry
             carry = sum // 10
             sum %= 10
             
-            ans_stack.append(ListNode(sum))
+            new_node = ListNode(sum)
+            new_node.next = ans_head
+            ans_head = new_node
         
         if(carry):
-            ans_stack.append(ListNode(carry))
+            # ans_stack.append(ListNode(carry))
+            new_node = ListNode(carry)
+            new_node.next = ans_head
+            ans_head = new_node
         
-        ans_head = ans_stack.pop()
-        temp = ans_head
+#         ans_head = ans_stack.pop()
+#         temp = ans_head
         
-        while(len(ans_stack)):
-            temp.next = ans_stack.pop()
-            temp = temp.next
+#         while(len(ans_stack)):
+#             temp.next = ans_stack.pop()
+#             temp = temp.next
         
         
         
