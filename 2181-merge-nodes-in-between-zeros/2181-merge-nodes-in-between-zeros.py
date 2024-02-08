@@ -9,19 +9,19 @@ class Solution:
         tempHead = ansHead
         
         temp = head
-        start = False
         curr_sum = 0
         
+        while(temp and temp.val != 0):
+            temp = temp.next
+            
+        temp = temp.next
+        
         while(temp):
-            # print(temp.val, start, curr_sum)
             if(temp.val == 0):
-                if(start):
-                    newNode = ListNode(curr_sum)
-                    tempHead.next = newNode
-                    tempHead = tempHead.next
-                    curr_sum = 0
-                else:
-                    start = True
+                newNode = ListNode(curr_sum)
+                tempHead.next = newNode
+                tempHead = tempHead.next
+                curr_sum = 0
                     
             curr_sum += temp.val     
             temp = temp.next
