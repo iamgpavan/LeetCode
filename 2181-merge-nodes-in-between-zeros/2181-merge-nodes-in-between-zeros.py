@@ -8,13 +8,13 @@ class Solution:
         ansHead = ListNode(0)
         tempHead = ansHead
         
-        temp = head
+        temp = head.next
         curr_sum = 0
         
-        while(temp and temp.val != 0):
-            temp = temp.next
+#         while(temp and temp.val != 0):
+#             temp = temp.next
             
-        temp = temp.next
+#         temp = temp.next
         
         while(temp):
             if(temp.val == 0):
