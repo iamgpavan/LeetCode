@@ -6,7 +6,7 @@
 class Solution:
     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
         stack = []
-        ans_stack = []
+        # ans_stack = []
         
         temp = head
         
