@@ -5,41 +5,18 @@
 #         self.next = next
 class Solution:
     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        stack = []
-        # ans_stack = []
+        
+        if head.val > 4:
+            head = ListNode(0, head)
         
         temp = head
         
         while(temp):
-            stack.append(temp)
+            temp.val = (2*temp.val)%10
+            
+            if(temp.next and temp.next.val > 4):
+                temp.val += 1
+            
             temp = temp.next
         
-        sum = 0
-        carry = 0
-        ans_head = None
-        
-        while(len(stack)):
-            sum = 2*stack.pop().val + carry
-            carry = sum // 10
-            sum %= 10
-            
-            new_node = ListNode(sum)
-            new_node.next = ans_head
-            ans_head = new_node
-        
-        if(carry):
-            # ans_stack.append(ListNode(carry))
-            new_node = ListNode(carry)
-            new_node.next = ans_head
-            ans_head = new_node
-        
-#         ans_head = ans_stack.pop()
-#         temp = ans_head
-        
-#         while(len(ans_stack)):
-#             temp.next = ans_stack.pop()
-#             temp = temp.next
-        
-        
-        
-        return ans_head
+        return head
