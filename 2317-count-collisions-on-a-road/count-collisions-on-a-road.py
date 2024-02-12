@@ -20,12 +20,14 @@ class Solution:
             
             i += 1
         
-        flag = False
         while(len(stack)):
             direction = stack.pop()
-            if(direction == 'R' and flag):
+            if(direction == 'S'):
+                break
+        
+        while(len(stack)):
+            direction = stack.pop()
+            if(direction == 'R'):
                 ans += 1
-            elif(direction == 'S'):
-                flag = True
         
         return ans
