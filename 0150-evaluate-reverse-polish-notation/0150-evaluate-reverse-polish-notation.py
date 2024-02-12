@@ -1,5 +1,29 @@
 class Solution:
-    def evalRPN(self, s: List[str]) -> int:
-        ops = {"+" : add, "-" : sub, "*" : mul, "/" : truediv}
-        for t in s[:] : s.append(int(ops[t](s.pop(-2),s.pop(-1)) if t in ops else t))
-        return s[-1]
+    def calculate(self, num1, num2, symbol):
+        if(symbol == '+'):
+            return num1 + num2
+        
+        if(symbol == "-"):
+            return num1 - num2
+        
+        if(symbol == "*"):
+            return num1 * num2
+    
+        if(symbol == "/"):
+            return int(num1 / num2)
+    
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        symbols = {"+", "-", "*", "/"}
+        
+        for value in tokens:
+            if(value in symbols):
+                # print(value, stack)
+                num2 = stack.pop()
+                num1 = stack.pop()
+            
+                stack.append(self.calculate(num1, num2, value))
+            else:
+                stack.append(eval(value))
+        
+        return stack[-1]
