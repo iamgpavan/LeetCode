@@ -1,60 +1,21 @@
 class Solution:
-    def survivedRobotsHealths(self, positions: List[int], healths: List[int], directions: str) -> List[int]:
-        data = []
-        
-        for i in range(len(positions)):
-            data.append([positions[i], healths[i], directions[i]])
-        
-        ans = {}
+    def survivedRobotsHealths(self, positions: List[int], h: List[int], directions: str) -> List[int]:
+        n = len(positions)
+        ind = sorted(range(n), key=positions.__getitem__)
         stack = []
-        
-        data.sort()
-        
-        i = 0
-        
-        while(i < len(data)):
-            direction = data[i][2]
-            # print("start,",data[i], stack)
-            
-            if(direction == 'R'):
-                stack.append(data[i])
-            else:
-                if(len(stack)):
-                    
-                    if(data[i][1] < stack[-1][1]):
-                        collide = stack.pop()
-                        stack.append([collide[0], collide[1]-1, 'R'])
-                    elif(data[i][1] > stack[-1][1]):
-                        while(len(stack) and data[i][1] > stack[-1][1]):
-                            stack.pop()
-                            data[i][1] -= 1
-                            
-                        
-                        if(len(stack) == 0):
-                            ans[data[i][0]] = data[i][1]
-                        elif(data[i][1] == stack[-1][1]):
-                            stack.pop()
-                        else:
-                            stack[-1][1] -= 1
-                    else:
-                        stack.pop()
+        for i in ind:
+            if directions[i] == 'R':
+                stack.append(i)
+                continue
+            while stack and h[i] > 0:
+                if h[stack[-1]] < h[i]:
+                    h[stack.pop()] = 0
+                    h[i] -= 1
+                elif h[stack[-1]] > h[i]:
+                    h[stack[-1]] -= 1
+                    h[i] = 0
                 else:
-                    ans[data[i][0]] = data[i][1]
-            # print("end,",data[i], stack)
-            i += 1
+                    h[stack.pop()] = 0
+                    h[i] = 0
             
-            
-        while(stack):
-            val = stack.pop()
-            ans[val[0]] = val[1]
-        
-        
-        result = []
-        # print(ans)
-        
-        for i in positions:
-            health = ans.get(i, None)
-            if(health != None):
-                result.append(health)
-        
-        return result
+        return [v for v in h if v > 0]
