@@ -18,21 +18,20 @@ class Solution:
     
         n = len(citations)
         low = 0
-        high = n
+        high = n-1
         ans = 0
         
         while(low <= high):
             mid = (low + high) // 2
-            countGreater = self.countUpperBound(n, citations, mid)
+            # countGreater = self.countUpperBound(n, citations, mid)
             # print(" ---- ", countGreater, mid)
-            if(countGreater == mid):
-                ans = mid
-                low = mid + 1
-            elif(countGreater > mid):
-                ans = max(ans, mid)
-                low = mid + 1
-            else:
+            if(citations[mid] == n - mid):
+                return n - mid
+            elif(citations[mid] > n - mid):
+                ans = max(ans, n-mid)
                 high = mid - 1
+            else:
+                low = low + 1
         
         # if(ans == 0):
         #     return n - high
