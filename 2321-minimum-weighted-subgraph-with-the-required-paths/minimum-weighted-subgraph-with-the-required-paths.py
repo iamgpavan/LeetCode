@@ -4,18 +4,17 @@ class Solution:
     def minimumWeight(self, n: int, edges: List[List[int]], src1: int, src2: int, dest: int) -> int:
         def dijiktra(n, graph, src):
             dist = [float('inf')]*n
-            dist[src] = 0
             q = [(0, src)]
 
             while(q):
                 curr_dist, curr_node = heapq.heappop(q)
-
                 if(curr_dist > dist[curr_node]):
                     continue
 
+                dist[curr_node] = curr_dist
+
                 for adj_node, adj_dist in graph[curr_node]:
                     if(curr_dist + adj_dist < dist[adj_node]):
-                        dist[adj_node] = curr_dist + adj_dist
                         heapq.heappush(q, [curr_dist+adj_dist, adj_node])
 
             return dist
