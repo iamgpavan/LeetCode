@@ -31,7 +31,7 @@ class Solution:
                 if(0<=i<m) and (0<=j<n):
                     new_k = k_left - grid[i][j]
 
-                    if(k_left >=0 and (i, j, k_left) not in vis):
+                    if(k_left >=0):
                         q.append([i, j, steps+1, new_k])
                     
         return -1
