@@ -15,6 +15,9 @@ class Solution:
                 queue.append(node)
                 ans.append(node)
         
+        if(not queue):
+            return []
+        
         while(queue):
             node = queue.pop()
 
